@@ -24,14 +24,13 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const githubContext = require('@actions/github').context;
-          const githubClient = require('@actions/github').getOctokit(process.env.GITHUB_TOKEN);
+          const githubClient = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}');
 
           const message = `A new push was made to the repository by @${githubContext.actor}.`;
 
-          await githubClient.issues.create({
+          await githubClient.rest.issues.create({
             owner: githubContext.repo.owner,
             repo: githubContext.repo.repo,
             title: "New Push Notification",
             body: message
           });
-
