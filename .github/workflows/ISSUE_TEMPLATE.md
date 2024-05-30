@@ -1,4 +1,4 @@
 ---
-title: 対応してください {{ date | date('dddd, MMMM Do') }}
+title: Weekly Radar {{ date | date('dddd, MMMM Do') }}
 ---
-問題が起きているかもしれません。
+What's everyone up to this week?
