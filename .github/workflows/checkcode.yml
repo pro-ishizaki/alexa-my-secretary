@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 2  # Fetch at least two commits to access the previous commit
 
@@ -37,8 +37,18 @@ jobs:
         echo "check line."
         find ./ -type f -name "*.py" | xargs -n 1 file > now.txt
         DIFF_LINE=$(diff pre.txt now.txt | wc -l)
-        if $((DIFF_LINE)) -gt 0; then
-          echo true$DIFF_LINE
+        if [ $((DIFF_LINE)) -gt 0 ]; then
+          echo "new issue"
+          echo "is_create=true" >> $GITHUB_ENV
         else
-          echo false$DIFF_LINE
+          echo "no problem."
+          echo "is_create=false" >> $GITHUB_ENV
         fi
+
+    - name: Run tests if specific file has changed
+      uses: JasonEtco/create-an-issue@v2
+      if: env.is_create == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/workflows/ISSUE_TEMPLATE.md
