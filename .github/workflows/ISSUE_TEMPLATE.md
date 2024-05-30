@@ -1,4 +1,6 @@
 ---
-title: Weekly Radar
+title: 対応してください！ {{ date | date('dddd, MMMM Do') }}
+assignees: bot
+labels: bug
 ---
-everyone up to this week
+問題が起きているかもしれません。
