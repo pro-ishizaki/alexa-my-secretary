@@ -1,4 +1,4 @@
 # テストコード
 
 def t_txt():
-  print("test5")
+  print("test7")
