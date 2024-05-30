@@ -43,8 +43,3 @@ jobs:
         else
           echo false$DIFF_LINE
         fi
-
-          echo true$DIFF_LINE
-        else
-          echo false$DIFF_LINE
-        fi
