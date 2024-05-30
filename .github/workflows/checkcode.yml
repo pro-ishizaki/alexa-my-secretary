@@ -18,19 +18,7 @@ jobs:
         # ここに実行したいシェルコマンドを追加
         ls -al
 
-    - name: Notify push user
-      uses: actions/github-script@v5
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const githubContext = require('@actions/github').context;
-          const githubClient = require('@actions/github').getOctokit('${{ secrets.GITHUB_TOKEN }}');
-
-          const message = `A new push was made to the repository by @${githubContext.actor}.`;
-
-          await githubClient.rest.issues.create({
-            owner: githubContext.repo.owner,
-            repo: githubContext.repo.repo,
-            title: "New Push Notification",
-            body: message
-          });
+    - name: Create an Issue
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
