@@ -16,3 +16,4 @@ jobs:
       run: |
         echo "Hello, world!"
         # ここに実行したいシェルコマンドを追加
+        ls -al
