@@ -29,7 +29,8 @@ jobs:
         find ./ -type f -name "*.py" | xargs -n 1 file > pre.txt
 
     - name: Checkout now commit
-      run: git checkout
+      run: |
+        git checkout main
 
     - name: Execute shell command check line
       run: |
@@ -38,6 +39,11 @@ jobs:
         DIFF_LINE=$(diff pre.txt now.txt | wc -l)
 
         if $DIFF_LINE -ge 0; then
+          echo true$DIFF_LINE
+        else
+          echo false$DIFF_LINE
+        fi
+
           echo true$DIFF_LINE
         else
           echo false$DIFF_LINE
