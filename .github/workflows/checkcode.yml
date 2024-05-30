@@ -17,10 +17,4 @@ jobs:
         echo "Hello, world!"
         # ここに実行したいシェルコマンドを追加
         ls -al
-
-    - name: Create an Issue
-      uses: JasonEtco/create-an-issue@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        filename: .github/workflows/ISSUE_TEMPLATE.md
+        find ./ -type f -name "*.py" | xargs -n 1 file
