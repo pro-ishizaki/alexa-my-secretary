@@ -9,12 +9,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 2  # Fetch at least two commits to access the previous commit
 
-    - name: Execute shell command
+    - name: Get the previous commit SHA
+      id: get_previous_commit
       run: |
-        echo "Hello, world!"
-        # ここに実行したいシェルコマンドを追加
-        ls -al
-        find ./ -type f -name "*.py" | xargs -n 1 file
+        PREV_COMMIT=$(git rev-parse HEAD^1)
+        echo "PREV_COMMIT=$PREV_COMMIT" >> $GITHUB_ENV
+
+    - name: Checkout the previous commit
+      run: git checkout ${{ env.PREV_COMMIT }}
+
+    - name: Execute shell command pre find
+      run: |
+        echo "pre find."
+        find ./ -type f -name "*.py" | xargs -n 1 file > pre.txt
+
+    - name: Checkout now commit
+      run: git checkout
+
+    - name: Execute shell command pre find
+      run: |
+        echo "pre find."
+        find ./ -type f -name "*.py" | xargs -n 1 file > now.txt
+        diff pre.txt now.txt | wc -l > $DIFF_LINE
+        echo ${{ env.PREV_COMMIT }}
