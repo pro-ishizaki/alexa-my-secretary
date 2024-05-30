@@ -1,0 +1,18 @@
+name: test Check Code
+on:
+  push:
+    branches:
+      - main # トリガーを指定ブランチに限定する場合
+
+jobs:
+  my_job1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Execute shell command
+      run: |
+        echo "Hello, world!"
+        # ここに実行したいシェルコマンドを追加
