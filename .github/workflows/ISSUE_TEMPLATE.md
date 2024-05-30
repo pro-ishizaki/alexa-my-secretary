@@ -1,4 +1,4 @@
 ---
-title: Weekly Radar {{ date | date('dddd, MMMM Do') }}
+title: Weekly Radar
 ---
-What's everyone up to this week?
+everyone up to this week
