@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v2
       with:
         fetch-depth: 2  # Fetch at least two commits to access the previous commit
 
@@ -31,9 +31,11 @@ jobs:
     - name: Checkout now commit
       run: git checkout
 
-    - name: Execute shell command pre find
+    - name: Execute shell command check line
       run: |
-        echo "pre find."
+        echo "check line."
         find ./ -type f -name "*.py" | xargs -n 1 file > now.txt
+        DIFF_LINE=$(0)
         diff pre.txt now.txt | wc -l > $DIFF_LINE
         echo ${{ env.PREV_COMMIT }}
+
