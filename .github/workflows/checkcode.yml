@@ -37,7 +37,7 @@ jobs:
         echo "check line."
         find ./ -type f -name "*.py" | xargs -n 1 file > now.txt
         DIFF_LINE=$(diff pre.txt now.txt | wc -l)
-        if $((DIFF_LINE)) -ge 0; then
+        if $((DIFF_LINE)) -gt 0; then
           echo true$DIFF_LINE
         else
           echo false$DIFF_LINE
