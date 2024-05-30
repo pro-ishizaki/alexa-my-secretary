@@ -17,3 +17,19 @@ jobs:
         echo "Hello, world!"
         # ここに実行したいシェルコマンドを追加
         ls -al
+
+    - name: Notify push user
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const { context, github } = require('@actions/github');
+
+          const message = `A new push was made to the repository by @${context.actor}.`;
+
+          await github.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: "New Push Notification",
+            body: message
+          });
